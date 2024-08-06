@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose");
 
-const alumnosSchema = new mongoose.Schema({
+const AlumnosSchema = new mongoose.Schema({
   nombre: String,
   apellido: String,
   dni: Number,
@@ -13,4 +13,4 @@ const alumnosSchema = new mongoose.Schema({
   fechaIngreso: Date,
 });
 // luego exportamos este esquema para utilizarlo en alumnos.js/controllers
-module.exports = mongoose.model("Alumnos", alumnosSchema); // 1 nombre DB, 2 el esquema
+module.exports = mongoose.model("Alumnos", AlumnosSchema); // 1 nombre DB, 2 el esquema
