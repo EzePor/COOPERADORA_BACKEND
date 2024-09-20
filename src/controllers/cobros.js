@@ -19,6 +19,22 @@ const crearCobro = async (req, res) => {
   res.send(response);
 };
 
+const modificarCobro = async (req, res) => {
+  try {
+    const { id } = req.params; // Extrae el ID de los parámetros de la solicitud
+
+    // Encuentra y actualiza el cobro por ID
+    const response = await MDB_COBROS.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+
+    res.send({ status: "Cobro modificado", response });
+  } catch (error) {
+    console.error("Error al modificar el cobro:", error);
+    res.status(500).send({ error: "Error al modificar el cobro" });
+  }
+};
+
 const eliminarCobro = async (req, res) => {
   try {
     const { id } = req.params; // Extrae el ID de los parámetros de la solicitud
@@ -38,5 +54,6 @@ const eliminarCobro = async (req, res) => {
 module.exports = {
   obtenerCobros,
   crearCobro,
+  modificarCobro,
   eliminarCobro,
 };
