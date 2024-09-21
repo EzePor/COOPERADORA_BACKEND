@@ -5,10 +5,11 @@ const {
   getPagoById,
   postPagos,
   putPago,
+  deletePago,
 } = require("../controllers/pagos");
 
-RUTAS_PAGOS.route("/").get(getPagos).post(postPagos);
+RUTAS_PAGOS.route("/").get(getPagos).post(postPagos).put(putPago);
 
-RUTAS_PAGOS.route("/:id").put(putPago).get(getPagoById);
+RUTAS_PAGOS.route("/:id").get(getPagoById).delete(deletePago);
 
 module.exports = RUTAS_PAGOS;

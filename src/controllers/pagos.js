@@ -48,9 +48,27 @@ const putPago = async (req, res) => {
   }
 };
 
+const deletePago = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Busca y elimina el pago en la base de datos por su ID
+    const pagoEliminado = await Pago.findByIdAndDelete(id);
+
+    if (!pagoEliminado) {
+      return res.status(404).json({ error: "Pago no encontrado" });
+    }
+
+    res.status(200).json({ message: "Pago eliminado correctamente" });
+  } catch (error) {
+    res.status(500).json({ error: "Error al eliminar el pago" });
+  }
+};
+
 module.exports = {
   getPagos,
   getPagoById,
   postPagos,
   putPago,
+  deletePago,
 };
