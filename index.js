@@ -9,6 +9,7 @@ const RUTAS_ALUMNOS = require("./src/routes/alumnos"); // rutas get/ post/
 const RUTAS_COBROS = require("./src/routes/cobros"); // rutas get/ post/
 const RUTAS_STATS = require("./src/routes/stats"); // rutas get/ post/
 const RUTAS_PAGOS = require("./src/routes/pagos"); // rutas get/ post/
+const RUTAS_USUARIOS = require("./src/routes/admin-user"); // rutas get/ post/
 
 // Instanciacion de EXPRESS(servidor)
 const app = express();
@@ -22,6 +23,7 @@ app.use("/alumnos", RUTAS_ALUMNOS); //  1ero base, luego las rutas a utilizar
 app.use("/cobros", RUTAS_COBROS); //  1ero base, luego las rutas a utilizar
 app.use("/stats", RUTAS_STATS); //  1ero base, luego las rutas a utilizar(estadísticas)
 app.use("/pagos", RUTAS_PAGOS);
+app.use("/auth", RUTAS_USUARIOS);
 // Inicializacion del servidor
 app.listen(process.env.PORT, () => {
   console.log(`Example app listening on port ${process.env.PORT}`);

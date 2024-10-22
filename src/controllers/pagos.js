@@ -1,10 +1,35 @@
 const MDB_PAGOS = require("../database/schemas/Pagos");
 
 const getPagos = async (req, res) => {
-  const pagos = await MDB_PAGOS.find()
-    .populate("alumno_id")
-    .populate("cobro_id");
-  res.send({ pagos });
+  try {
+    const { limit, alumnoId, last } = req.query; // Obtener los parámetros de consulta 'limit', 'alumnoId' y 'last'
+    let query = MDB_PAGOS.find();
+
+    // Filtrar por alumno si se proporciona 'alumnoId'
+    if (alumnoId) {
+      query = query.where("alumno_id").equals(alumnoId);
+    }
+
+    // Ordenar por fecha de creación descendente
+    query = query.sort({ fechaCreacion: -1 });
+
+    // Limitar el número de resultados si se proporciona 'limit'
+    if (limit) {
+      query = query.limit(parseInt(limit, 10));
+    }
+
+    // Si se proporciona 'last', limitar a los últimos 2 pagos
+    if (last) {
+      query = query.limit(2);
+    }
+
+    const pagos = await query.populate("alumno_id").populate("cobro_id");
+
+    res.send({ pagos });
+  } catch (error) {
+    console.error("Error al obtener los pagos:", error);
+    res.status(500).send({ error: "Error al obtener los pagos" });
+  }
 };
 
 const getPagoById = async (req, res) => {
