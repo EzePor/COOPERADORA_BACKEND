@@ -68,13 +68,18 @@ const obtenerAlumnos = async (req, res) => {
 };
 
 const crearAlumno = async (req, res) => {
-  const response = await MDB_ALUMNOS.create({
-    ...req.body,
-  });
+  try {
+    const response = await MDB_ALUMNOS.create({
+      ...req.body,
+    });
 
-  console.log(response);
+    console.log(response);
 
-  res.send(response);
+    res.status(200).send(response);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ error: "Error al crear el alumno" });
+  }
 };
 
 const eliminarAlumno = async (req, res) => {
